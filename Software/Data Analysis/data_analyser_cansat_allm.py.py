@@ -36,7 +36,7 @@ def read_configuration(file_path: str = 'config.ini') -> dict:
 
     try:
         return {
-            "file_name": config.get('FILE', 'Name'),
+            "file_name": config.get('FILE', 'OutputFile'),
             "launch_time": datetime.datetime(
                 config.getint('LAUNCH', 'Year'),
                 config.getint('LAUNCH', 'Month'),
@@ -90,15 +90,10 @@ def validate_dataframe(df: pd.DataFrame, columns: dict):
         columns["altitude"], 
         columns["time_of_flight"]
     ]
-    print(expected_columns)
+
     logging.info(f"Dataframe columns: {df.columns}")
     missing_columns = [col for col in expected_columns if col not in df.columns]
 
-    print(f"Missing columns: {missing_columns}")
-
-    
-    for col in expected_columns:
-        print(col, df.columns) 
     if missing_columns:
         logging.error(f"Missing columns in dataframe: {missing_columns}")
         raise ValueError(f"Dataframe does not contain all expected columns. Missing: {missing_columns}")
@@ -224,8 +219,6 @@ def plot_data(df: pd.DataFrame, start_idx: int, end_idx: int, colors: dict, colu
 if __name__ == "__main__":
     config = read_configuration()
     df = load_and_prepare_data(config['file_name'], config['launch_time'], config['column_names'])
-    print(df)
-    print(config['column_names'])
 
     if not df.empty:
         validate_dataframe(df, config['column_names'])
