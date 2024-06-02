@@ -34,6 +34,7 @@ attribute_units = {
     'altitude': 'm',
     'co2': '400 - 65000 ppm',
     'tvoc': '0 - 65000 ppb',
+    'uv' : 'kJ/m2',
 }
 
 def convert_ddm_to_dd(ddm_value):
@@ -132,7 +133,7 @@ def read_configuration(file_path: str = CONFIG_FILE_NAME) -> dict:
                 "ylabel": config.get('PLOT', 'YLabel'),
             },
             "color_palettes": {
-                "palette1": config.get('COLOR_PALETTES', 'palette1'),
+                "palette1": config.get('COLOR_PALETTES', 'palette1').split('-'),
                 "palette1_colors": config.getint('COLOR_PALETTES', 'palette1_colors'),
             },
             "output": {
@@ -148,10 +149,10 @@ def read_configuration(file_path: str = CONFIG_FILE_NAME) -> dict:
         logging.error(f"Invalid value in the configuration file {file_path}: {str(ve)}")
         raise
 
-def get_dynamic_path(base_path: str, launch_datetime: datetime.datetime) -> str:
+def get_dynamic_path(base_path: str, launch_datetime: datetime.datetime, field: str) -> str:
     file_name, file_extension = os.path.splitext(base_path)
     timestamp = launch_datetime.strftime("%Y%m%d-%H%M%S")
-    return f"{file_name}_{timestamp}{file_extension}"
+    return f"{file_name}_{timestamp}_{field}{file_extension}"
 
 def setup_plotting():
     try:
@@ -170,6 +171,16 @@ def setup_plotting():
     plt.rcParams["ytick.major.size"] = 8
     
     return prop
+
+# # def hex_to_rgba(hex_color):
+#     hex_color = hex_color.lstrip('#')
+#     return tuple(int(hex_color[i:i+2], 16) / 255.0 for i in (0, 2, 4)) + (1.0,)
+
+# def convert_palette(hex_palette):
+#     # Ensure the palette is split correctly and each color is cleaned
+#     print(hex_palette)
+#     clean_palette = hex_palette.strip("[]").replace("'", "").split(',')
+#     return [hex_to_rgba(color.strip()) for color in clean_palette]
 
 def basic_data_checks(df: pd.DataFrame):
     if df.isnull().values.any():
@@ -279,7 +290,7 @@ def load_and_prepare_data(filepath: str, time_columns, custom_dict=None, **kwarg
     
     return df
 
-def prepare_data_for_plotting(df: pd.DataFrame, attribute, launch_datetime: datetime.datetime) -> pd.DataFrame:
+def prepare_data_for_plotting(df: pd.DataFrame, attribute, launch_datetime: datetime.datetime, start_idx: int, end_idx: int) -> pd.DataFrame:
     if 'epoch' not in df.columns:
         logging.error("The 'epoch' column is missing from the DataFrame.")
         raise KeyError("The 'epoch' column is missing from the DataFrame.")
@@ -298,6 +309,9 @@ def prepare_data_for_plotting(df: pd.DataFrame, attribute, launch_datetime: date
     df['TimeOfFlight'] = launchtime + pd.to_timedelta(df['epoch']) - firstRuntime
     
     df.index = launch_datetime + df['TimeOfFlight']
+    # Slice the DataFrame according to start_idx and end_idx
+    df = df.iloc[start_idx:end_idx]
+    
     return df
 
 def prepare_plot_elements(df: pd.DataFrame, attribute, valuevars) -> pd.DataFrame:
@@ -332,9 +346,14 @@ def configure_plot_appearance(ax, x0, x1):
     return ax
 
 def create_plot(dfAlt: pd.DataFrame):
+    # hex_palette = config_params['color_palettes']['palette1']
+    # rgba_palette = convert_palette(hex_palette)
+    # sns.set_palette(rgba_palette)
+
+    # # sns.set_palette(sns.color_palette(palette))
     sns.set_palette(sns.color_palette("RdPu_r", n_colors=4))
     sns.despine(top=True, offset=40, trim=True)
-    ax = sns.lineplot(x='epoch', y='value', hue='variable', data=dfAlt)
+    ax = sns.scatterplot(x='epoch', y='value', hue='variable', data=dfAlt)
     
     return ax
 
@@ -359,10 +378,18 @@ def display_plot():
     plt.show()
 
 def save_plot(file_path: str, file_format: str, dpi: int):
+    plt.tight_layout()
     plt.savefig(file_path, format=file_format, dpi=dpi)
+    plt.close()
 
 def clean_column(df, column_name):
     df[column_name] = df[column_name].replace('None', np.nan).astype(float)
+    return df
+
+def normalize_uv_values(df, uva_col='uv_uva', uvb_col='uv_uvb', uvidx_col='uv_uvidx'):
+    df[uva_col] = df[uva_col] * (50 / 4000)  # Normalize UVA to range 0-50
+    df[uvb_col] = df[uvb_col] * (5 / 4000)   # Normalize UVB to range 0-5
+    df[uvidx_col] = df[uvidx_col] * (6 / 4000)  # Normalize UVIDX to range 0-11
     return df
 
 def plot_coordinates_on_map(coordinates_df, map_file="map.html"):
@@ -400,11 +427,18 @@ if __name__ == "__main__":
     # Convert GPS data from DDM to DD
     df_gps = process_gps_data(df_gps, 'gps_gps1_latitude', 'gps_gps1_longitude')
 
+    start_idx = config_params['data_slice']['start']
+    end_idx = config_params['data_slice']['end']
+
     for attribute in attributes:
         time_columns = get_time_columns_from_config()
         df = load_and_prepare_data(file_name, time_columns, column_categories[attribute])
 
-        df = prepare_data_for_plotting(df, attribute, launch_datetime)
+        # Normalize UV values if the attribute is UV
+        if attribute == "uv":
+            df = normalize_uv_values(df)
+
+        df = prepare_data_for_plotting(df, attribute, launch_datetime, start_idx, end_idx)
         x0, x1 = config_params['plot']['x0'], config_params['plot']['x1'] 
 
         if attribute in column_categories:
@@ -436,11 +470,12 @@ if __name__ == "__main__":
         
         customize_plot(ax, x0, x1, figure_size, title, xlabel, ylabel, label_font_size, title_font_size, line_styles)
         
-        display_plot()
+        #display_plot()
 
         file_format = plot_config['file_format']
         dpi = plot_config['dpi']    
-        dynamic_path = get_dynamic_path(config_params['output']['plot_path'], launch_datetime)
+        dynamic_path = get_dynamic_path(config_params['output']['plot_path'], launch_datetime, attribute)
+        print(f"File format: {file_format}\nDPI: {dpi}\nPath: {dynamic_path}")
         save_plot(dynamic_path, file_format, dpi)
 
     try:
