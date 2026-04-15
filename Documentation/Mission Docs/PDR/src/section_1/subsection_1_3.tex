@@ -1,0 +1,73 @@
+\subsection{Mission objectives}
+
+
+\vspace{0.5cm}
+
+The CDOSR team's mission objective is to conduct a detailed atmospheric analysis at approximately 1000 meters altitude, focusing on collecting atmospheric pressure, temperature, and flight dynamics data using an Inertial Measurement Unit (IMU). This mission serves as a foundation for future exploratory initiatives. The CanSat will record and transmit vital atmospheric data, including pressure, temperature, and IMU data capturing acceleration and gyroscope readings. Additionally, the CanSat's secondary mission involves measuring environmental factors such as humidity, UV light strength, carbon monoxide/dioxide, and detecting muons to enhance cosmic research.
+
+\subsubsection{Missions description}
+
+The CanSat's \textbf{primary mission}, following its release and during its descent, is to measure air \textbf{temperature} and air \textbf{pressure}. It will transmit this data to the ground station at least once every second. The data collected will be analyzed using the barometric formula to determine the CanSat's altitude.
+
+The CDOSR team's secondary mission significantly broadens its primary goals by measuring various environmental parameters such as humidity, UV light intensity, carbon dioxide levels, and detecting cosmic particles in addition to core telemetry data. The mission entails several key tasks:
+\begin{itemize}[leftmargin=1.27cm, itemindent=0cm, topsep=2pt, label=\faTasks]
+    \item {\textbf{Enhanced Atmospheric Analysis:}}Our CanSat will meticulously record atmospheric data at different altitudes, focusing on temperature, humidity, and pressure. The goal is to build a comprehensive atmospheric profile, offering valuable insights into atmospheric science and climatology.
+    \item {\textbf{UV Light Intensity Monitoring:}} The CanSat will detect and record UV radiation levels at various altitudes during descent, enabling the creation of a profile of UV radiation intensity along the path. This data will aid in identifying areas with high UV radiation, raising awareness of associated health risks like skin damage.
+
+    \item {\textbf{Advanced Cosmic Particle Research:}} Delving into the field of high-energy physics, the CanSat is set to detect and study muons. This endeavor will not only enhance our knowledge of cosmic rays but also deepen our insight into the fundamental processes of space.
+    \item {\textbf{Air Quality Assessment:}} The mission involves a comprehensive air quality analysis, measuring carbon monoxide and other pollutants at different altitudes. This data will play a crucial role in pinpointing pollution sources and informing environmental policy-making on air quality.
+\end{itemize}
+\subsubsection{Measurements, investigations and tests}
+
+
+Our mission includes environmental monitoring by tracking UV light intensity and carbon monoxide/dioxide levels throughout the CanSat's flight. We aim to understand the implications of these factors at different altitudes and convert raw data into actionable insights using detailed analysis.
+
+At the core of our mission lies the ambition to record muons with our CanSat. Muons are fascinating heavy elementary particles produced when cosmic rays collide with gases in Earth's high atmosphere. Real-time transmission will be implemented for some data, while remaining data will be stored on flash memory and microSD card for post-retrieval analysis, if feasible.
+
+Data analysis is essential for making sense of collected data. We will use various methods, including visual representation, tables, and calculations, to analyze sensor data effectively.
+
+Gathering atmospheric data for the CDOSR project is vital for environmental and technical reasons. Operating in a dynamic environment with rapidly changing atmospheric conditions requires meticulous planning and analysis. We use real-time transmission for some data via LoRaWAN and store complex data for post-mission analysis. Testing new materials and evaluating the microcontroller's performance are integral parts of our mission. Our mission also serves as a testbed for modular sensor design.
+
+\subsubsection{Research expectations}
+
+The CDOSR team aims to gain insights and knowledge from measuring atmospheric data and air pollution at different altitudes.
+
+The team aims to optimize the CanSat's design and operation by measuring temperature, humidity, and pressure at different altitudes to ensure its survival and successful mission completion.
+
+As the altitude increases, the atmospheric conditions undergo significant changes. The team expects a decrease in temperature of around 6.5 °C per kilometer, which is approximately the value of the vertical thermal gradient in the troposphere under standard conditions\endnote{
+    {\href{https://en.wikipedia.org/wiki/Atmospheric\_temperature\#Temperature\_versus\_altitude}
+    {https://en.wikipedia.org/wiki/Atmospheric\_temperature}}}. Moreover, using both linear and exponential Stevin's law\endnote{
+    {\href{https://en.wikipedia.org/wiki/Vertical\_pressure\_variation}
+    {https://en.wikipedia.org/wiki/Vertical\_pressure\_variation}}}, 
+the team should detect a decrease in air pressure of approximately 12 hPa per 100 meters. As a consequence, there should be also a slight decrease in relative humidity since it is directly proportional to the air pressure. These insights will help the team to design and optimize the CanSat's systems to withstand the changing atmospheric conditions during the mission.
+
+
+The team aims to gather data on UV radiation and air pollution at various altitudes to identify pollution sources and raise awareness of associated health risks.
+
+The team aims to gain insights into data collection, transmission, and analysis for future space projects. We will equip the CanSat with specialized sensors to capture and analyze high-energy particles, particularly muons. The insights gained will be invaluable for future projects involving cosmic research and particle physics.
+
+Overall, the CoderDojo Space Robotics project team expects to gain valuable insights and knowledge from the secondary mission of measuring atmospheric data and air pollution at different altitudes, contributing to the broader goal of promoting environmental sustainability and advancing space-related technology.
+
+\subsubsection{Objectives for a successful mission}
+
+The below objectives are to be achieved on launch day and post-launch analysis:
+\begin{multicols}{2}[\vspace{-0.75\baselineskip}]
+\begin{itemize}[leftmargin=1cm,itemindent=0.5cm, noitemsep, topsep=2pt, label=\ding{51}]
+    \item Successful launch
+    \item Live data transmission and  telemetry
+    \item Successful parachute deploy
+    \item All systems nominal (reliable sensor and location data)
+    \item Descent rate between 5-10 \SI{}{\meter\per\second}
+    \item Landing confirmation
+    \item Recovery of the can
+    \item Data analysis
+    \item Generating reports
+\end{itemize}
+\end{multicols}
+
+In conclusion, the primary mission of the CanSat project is to measure and transmit atmospheric data such as temperature, pressure, and altitude, while the secondary mission includes additional measurements such as humidity, UV radiation, air pollution, telemetry data and muon detection. 
+
+
+Collecting atmospheric data is crucial for our space project, as it offers vital insights into the environment the CanSat encounters, influencing its design optimization and supporting sustainability. Understanding atmospheric variables like temperature, pressure, humidity, and UV radiation is key to ensuring the CanSat's effective operation and preventing damage to its components.
+
+The data gathered at various altitudes will not only help us fine-tune the CanSat's design for enhanced performance but also allow for a successful mission outcome.

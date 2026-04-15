@@ -1,0 +1,169 @@
+%% ROSPINCanSat.sty
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{CDOSR_CanSat}[2023/03/30 CanSat Competition PDF Style]
+
+\RequirePackage{amsmath, amsfonts, amssymb, amsthm, graphicx}
+\RequirePackage[margin=1in]{geometry}
+\RequirePackage{multicol}
+\RequirePackage{fancyhdr}
+\RequirePackage{hyperref}
+\RequirePackage{cleveref}
+\RequirePackage[table,xcdraw,usenames,dvipsnames,x11names]{xcolor}
+\RequirePackage{svg}
+\RequirePackage{titlesec, lettrine, textcase, relsize}
+\RequirePackage{fix-cm}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{enumitem}
+\RequirePackage{helvet}
+\RequirePackage{array, adjustbox, colortbl}
+\RequirePackage{siunitx}
+\RequirePackage{hyperref}
+\RequirePackage{endnotes,lipsum}
+\RequirePackage{hyperendnotes}
+\RequirePackage{tabularx}
+\RequirePackage{wrapfig}
+\RequirePackage{tocloft}
+\RequirePackage{pifont}
+\RequirePackage{fontawesome5}
+\RequirePackage{tikz}
+\RequirePackage{colortbl}
+\RequirePackage{zref-savepos}
+\RequirePackage{xifthen} % Required for \isempty test
+\RequirePackage{ulem}
+\fontfamily{phv}\selectfont
+
+
+% Adjust the font size of the table of contents
+%\renewcommand{\cftsecfont}{\small}
+\renewcommand{\cftsubsecfont}{\small}
+\renewcommand{\cftsubsubsecfont}{\small}
+
+\newcommand{\cansattitle}[3]{%
+  \begin{titlepage}
+      \begin{center}
+        \vspace*{1cm}
+        \Huge{\textbf{#1}}
+
+        \vspace{4.5cm}
+        \includegraphics[width=0.4\textwidth]{#2}%
+        \ifthenelse{\isempty{#3}}{}{%
+          \hspace{1cm}
+          \includegraphics[width=0.4\textwidth]{#3}%
+        }
+
+      \end{center}
+      \vspace{4.5cm}
+      {\LARGE{\textbf{Team Name: CoderDojo Oradea Space Robotics}}}\\[0.3cm]
+      {\LARGE{\textbf{Organisation: CoderDojo Oradea}}}\\[0.3cm]
+      {\LARGE{\textbf{Country: Romania}}}
+    
+      \vspace{0.5cm}
+      \begin{flushright} 
+        \textbf{\@date}
+      \end{flushright}
+    \end{titlepage}
+}
+
+\newcommand{\righttext}{\textbf{Romanian CanSat and \\Rocketry Competition}}
+\newcommand{\centerheadtext}{\textbf{CoderDojo Oradea Space Robotics - PDR}}
+\renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L,R]{\thepage}
+\fancyhead[R]{\textbf{\leftmark}}
+\fancyhead[LO]{\textbf{\rightmark}}
+
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \renewcommand{\headrulewidth}{0pt}% Remove header rule
+  \renewcommand{\footrulewidth}{0pt}% Remove footer rule
+  \fancyhead[L]{\includegraphics[scale=0.15]{img_CDOSR.png}}
+  \fancyhead[C]{\raisebox{1.5\height}{\centerheadtext}}
+  \fancyhead[R]{\includegraphics[scale=0.016]{img_CANSAT_RO.png}}
+  \fancyhead[C]{\HruleCanSat[DeepSkyBlue4]{5pt}{-15pt}{1.5pt}}
+  \fancyfoot[C]{\HruleCanSat[DeepSkyBlue4]{5pt}{2pt}{1.5pt}\includegraphics[scale=0.115]{img_Cansats_in_europe.png}}
+  \fancyfoot[R]{\textbf{\thepage}}%
+}
+
+% \fancypagestyle{plain}{%
+%   \fancyhf{}%
+%   \fancyhead[L]{\includegraphics[width=3cm]{images/ROSPIN_Logo.png}}
+%   \fancyhead[R]{\righttext}
+%   \fancyfoot[R]{\textbf{\thepage}}%
+% }
+
+% Define section and subsection formatting
+\titleformat{\section}[block]{\Large\filcenter\textsc}{\thesection}{1em}{\scshape}
+\titleformat{\subsection}[block]{\large\textsc}{\thesubsection.}{1em}{\scshape}
+\titleformat{\subsubsection}[block]{\large\textsc}{\thesubsubsection.}{1em}{\scshape}
+
+\AtBeginDocument{
+  \pagestyle{empty}
+}
+
+\renewcommand{\title}[1]{\def\@title{#1}}
+\renewcommand{\author}[1]{\def\@author{#1}}
+\renewcommand{\date}[1]{\def\@date{#1}}
+
+\definecolor{gray}{rgb}{0.60, 0.60, 0.60}
+\newcommand{\coloredbox}[4]{
+    \begin{tcolorbox}[colback=#1, colframe=#2, arc=2mm, boxrule=0mm]
+        {\color{#3} #4}
+    \end{tcolorbox}
+}
+\newcommand{\HruleCanSat}[4][.]{%
+  \par\addvspace{#2}%
+  \begingroup\color{#1}%
+  \hrule height #4
+  \endgroup
+  \addvspace{#3}%
+}
+
+\definecolor{dgray}{rgb}{0.40, 0.40, 0.40}
+
+\newcommand{\graytriangleright}{\textcolor{dgray}{$\blacktriangleright$}}
+\newcommand{\myitem}{\item[\graytriangleright]\color{dgray}}
+\newcommand{\myitemtwo}{\item[$\triangleright$]\color{dgray}}
+
+
+
+\newcommand{\setitemizespacing}[1]{%
+  \setlength{\itemsep}{#1}%
+}
+
+\setlist{nolistsep}
+\setlist{itemsep=0pt, parsep=0pt}
+
+\newcommand{\cansatstyle}{
+  \setlength{\headheight}{36.58205pt}
+  \addtolength{\topmargin}{-24.58205pt}
+}
+
+% \newcommand{\cansatstyle}{
+%   \setlength{\headheight}{40.3135pt}
+%   \addtolength{\topmargin}{-1.9728pt}
+% }
+
+\newcommand{\altitudeicon}{
+    \begin{tikzpicture}[scale=0.15]
+        % Ground
+        \draw[fill=black] (0,0) -- (2,0) -- (1,1) -- cycle;
+        % Altitude lines
+        \draw (1,1) -- (1,3);
+        \draw (0.5,1.5) -- (1.5,1.5);
+        \draw (0.75,2) -- (1.25,2);
+        \draw (1,2.5) circle[radius=0.25];
+    \end{tikzpicture}
+}
+\newcommand{\newaltitudeicon}{\includegraphics[width=0.42cm]{icons/icon_altitude.png}}
+\newcommand{\newgsmicon}{\includegraphics[width=0.4cm]{icons/icon_gsm.png}}
+\newcommand{\newphoneicon}{\includegraphics[width=0.2cm]{icons/icon_phone.png}}
+\newcommand{\newweighticon}{\includegraphics[width=0.45cm]{icons/weight.png}}
+
+\zsaveposy{startImage}
+\newlength{\remainingSpace}
+\setlength{\remainingSpace}{\dimexpr\zposy{startImage}sp-\baselineskip-\topskip}
+
+
