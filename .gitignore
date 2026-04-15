@@ -2,3 +2,29 @@
 Software/Base_Station/pybytes_config.json
 
 Software/Base_Station/pybytes_config.json
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.synctex(busy)
+*.toc
+*.vrb
+*.xdv
+
+# Built PDFs inside LaTeX source dirs (keep datasheets and final deliverables)
+Documentation/Mission Docs/*/src/*.pdf
