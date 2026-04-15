@@ -1,18 +1,19 @@
-# Hardware Directory
+# Hardware
 
-This directory contains all the hardware-related files for the CanSat2024 project.
+CAD sources for the custom PCBs designed for CanSat 2024.
 
 ## Contents
-- `Schematics/`: Contains circuit schematics for the CanSat.
-- `PCB Designs/`: Contains PCB design files.
-- `Components/`: Information and datasheets for the components used.
 
-## Schematics
-The `Schematics/` directory includes detailed circuit diagrams for each subsystem of the CanSat. These diagrams are essential for understanding the electrical connections and functionality of the satellite.
+- `PCB Designs/` — Eagle `.sch` (schematic) and `.brd` (board layout) files
+  for the four custom boards:
+  - `Comm_board_2024_L76` — communications board with Quectel L76 GNSS
+  - `Comm_board_2024_M8N` — communications board with u-blox NEO-M8N GNSS
+  - `Power_board_2024` — power distribution and battery management
+  - `Sensor_board_2024` — sensor aggregation (IMU, environmental, etc.)
 
-## PCB Designs
-In the `PCB Designs/` directory, you will find the design files for the printed circuit boards (PCBs) used in the CanSat. These designs can be used to manufacture the PCBs.
+## Component datasheets
 
-## Components
-The `Components/` directory contains datasheets and specifications for all the components used in the CanSat. This information is crucial for sourcing and understanding the parts used in the project.
-
+Datasheets for the third-party components used on these boards live under
+[`Documentation/Hardware/Data Sheets/`](../Documentation/Hardware/Data%20Sheets/)
+— kept separate so this tree stays focused on our own CAD sources rather
+than vendor reference material.
