@@ -1,0 +1,83 @@
+
+\subsection{Recovery system}
+Our recovery system was designed to slow down the descent rate of the payload, nose cone and body tube to a safe and controlled speed of which may vary depending on weather conditions (we will discuss it a bit later on). The payload’s recovery system ensures a safe and controlled descent to the ground via a deployed parachute after reaching maximum altitude.
+
+\subsubsection{Parachute}
+
+The key element is the hemispherical parachute.
+\begin{wrapfigure}{l}{0.26\textwidth}
+\centering
+\includegraphics[width=3.75cm]{images/img_canopy2}
+\caption{\small{Parachute design.}}
+\label{fig:software_fiagram}
+\end{wrapfigure}
+This type is ideal since our mission involves only atmospheric descent, not targeted landings. The parachute deploys right after the payload is released from the helicopter, attaching to the can at six points to minimize rotation. Six durable, lightweight ropes (1 gram/meter) connect the parachute to the payload. A ball-bearing swivel is recommended to prevent line entanglement. We will use colorful nylon for visibility.
+
+In addition, we have two secondary recovery systems: GPS for descent tracking and a loud buzzer activated upon landing when sensors detect no movement. The bright colors of the can and parachute will aid in locating the payload.
+
+Our parachute system is designed for both prolonged descent (6 m/s) for atmospheric analysis in good weather and rapid descent (9 m/s) in poor weather. Calculations for descent rates factor in time to ensure successful recovery.
+
+For the values in Tables 6 and 7, we used the following formulas:
+
+\begin{equation}\label{eq1}
+S=\frac{2mg}{C_d \rho v^2}, \quad\quad D = \sqrt{\frac{4S}{\pi}}, \quad\quad SLL = 1.15 * D, \quad\quad d = D * 10\%
+\end{equation}
+
+\begin{table}[htbp]
+\centering
+\arrayrulecolor{DeepSkyBlue4}
+\begin{tabular}{>{\centering\arraybackslash}lcc}
+\rowcolor{DeepSkyBlue4}
+\hline
+\textbf{\color{white!50}{Parameter}} & \multicolumn{1}{|c|}{\textbf{\color{white!50}{1st Parachute}}}  & \textbf{\color{white!50}{2nd Parachute}} \\
+\hline
+Surface & 0.0834 m$^{2}$ & 0.0370 m$^{2}$\\
+\rowcolor{LightCyan1!50}Diameter 1 (D) & 0.3259 m $\approx$ 32.6 cm & 0.2173 m $\approx$ 21.7 cm \\
+Diameter 2 (d) & 3.26 cm & 2.17 cm\\
+\rowcolor{LightCyan1!50}Suspension Lines (SLL) & 37.5 cm & 25 cm \\
+\hline
+\end{tabular}
+\caption{Surface and diameter for the Payload's parachutes}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\arrayrulecolor{DeepSkyBlue4}
+\begin{tabular}{>{\centering\arraybackslash}lcc}
+\rowcolor{DeepSkyBlue4}
+\hline
+\textbf{\color{white!50}{Parameter}} & \multicolumn{1}{|c|}{\textbf{\color{white!50}{3rd Parachute}}}  & \textbf{\color{white!50}{4th Parachute}} \\
+\hline
+Surface & 0.0444 m$^{2}$ & 0.0197 m$^{2}$\\
+\rowcolor{LightCyan1!50}Diameter 1 (D) & 0.2380 m $\approx$ 23.8 cm & 0.1587 m $\approx$ 15.8 cm \\
+Diameter 2 (d) & 2.38 cm & 1.58 cm\\
+\rowcolor{LightCyan1!50}Suspension Lines (SLL) & 27.37cm & 18.17 cm \\
+\hline
+\end{tabular}
+\caption{Surface and diameter for the nose cone and body tube's parachutes}
+\end{table}
+
+To calculate the dimensions required for the parachute, we considered the following constant parameters, including physical constants and canopy parameters (Table 8).
+
+\begin{table}[htbp]
+\centering
+\arrayrulecolor{DeepSkyBlue4}
+\begin{tabular}{>{\centering\arraybackslash}lc}
+\rowcolor{DeepSkyBlue4}
+\hline
+\multicolumn{1}{|c|}{\textbf{\color{white!50}{Parameter}}}  & \textbf{\color{white!50}{Value}} \\
+\hline
+$g$ - gravitational acceleration & \SI{9.81 }{\meter\per\square\second} \\
+\rowcolor{LightCyan1!50}$\rho$ - air density & \SI{1.225}{\kilogram\per\cubic\metre} \\
+$v$ - descent velocity & 6 and 9 \SI{}{\meter\per\second} \\
+\rowcolor{LightCyan1!50}$m$ - Payload mass & \SI{0.15}{\kilogram} \\
+$m$ - nose cone and body tube mass & \SI{0.08}{\kilogram} \\
+\rowcolor{LightCyan1!50}$C_d$ - Drag coefficient & 0.8 \\
+$n$ - number of gores & 6 \\
+\hline
+\end{tabular}
+\caption{Constant parameters and their values}
+\end{table}
+
+The hemispherical parachutes with 6 gores and an additional spill hole of diameter d = 10\% of the canopy’s diameter, D on the top, is our preferred primary recovery system due to its high drag coefficient per area, which allows for a lightweight parachute. This spill hole helps with air transition along the parachute, preventing oscillations during descent.
+

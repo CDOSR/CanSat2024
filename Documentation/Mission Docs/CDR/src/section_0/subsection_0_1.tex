@@ -1,0 +1,75 @@
+\subsection{New progress statement for the team profile}
+
+\subsubsection*{CanSat Developement}
+\addcontentsline{toc}{subsubsection}{CanSat Developement}
+
+\paragraph*{Mechanical design}
+During our design phase, we've been evaluating two distinct can models using Autodesk Fusion. The initial model incorporates a lid positioned at the can's base, showcasing reliability and efficiency, albeit with certain constraints. The primary benefit of this bottom-lid configuration is its straightforward access to the can's interior, facilitating assembly and upkeep. Nevertheless, a drawback is the necessity for a swivel mechanism to attach the parachute, introducing additional weight and complexity. Moreover, this design complicates the rapid exchange of parachutes, potentially causing delays in practical scenarios.
+
+Conversely, our second prototype features a lid on the can's top, streamlining the parachute's replacement without the swivel, thereby lightening the load and simplifying the design. This top-lid approach enhances access and maintenance ease. However, it presents a challenge in assembly, requiring components to be fitted through the upper opening.
+
+\paragraph*{Electrical design}
+In late January, our team initiated the development of the payload, opting to use Python for programming, with a choice between ESP32 or Raspberry Pi RP2040 as the hardware platform. After thorough research and comparison of both options, we settled on the ESP32 for its superior features.
+
+Initially, the Raspberry Pi 2040 (Pico) was considered, but it ultimately failed to meet our requirements for connectivity interfaces.
+
+Recently, we embarked on a project focused on integrating two ESP32 microcontrollers. We chose the ESP32 for its enhanced computational power and wireless functionality, aiming to develop a powerful and flexible system that aligns with our project goals.
+
+\begin{table}[htbp]
+\centering
+\arrayrulecolor{DeepSkyBlue4} % set color of vertical lines
+\begin{tabular}{>{\centering\arraybackslash}m{4cm}>{\centering\arraybackslash}llll}
+\hline
+\rowcolor{DeepSkyBlue4}
+\textbf{\color{white!50}{Module}} & \textbf{\color{white}{Sensor}} & \textbf{\color{white}{I2C Bus}} & \textbf{\color{white}{I2C Address}} & \textbf{\color{white}{Manufacturer}} \\
+Altimeter & LPS25H & 1 & 0xB8 &  STMicroelectronics \\
+IMU & MPU-9250 & 2 & 0x68 - 0x69 & TDK InvenSense \\
+Environmental Sensor & BME688 & 2 & 0x76 - 0x77 & Bosch \\
+Temperature Sensor & MCP9808 & 1 & 0x18 & Microchip Technology \\
+Ambient Light Sensor & VEML6075 & 1 & 0x10 & Vishay Semiconductors \\
+GNSS / GPS Module & Quectel L76 & 2 & 0x20 - 0x21 & Quectel \\
+\end{tabular}
+\caption{Sensor modules with their respective I2C addresses and manufacturers}
+
+\end{table}
+\label{tab:sensors}
+
+To gather the required components, we began sourcing them from suppliers like Mouser and TME.
+
+
+\paragraph*{Recovery System}
+For our team's inaugural payload deployment, we opted for a parachute with a hemispherical shape. However, we ultimately chose a hexagonal model for our recovery parachute.
+
+In an effort to refine our parachute design, we experimented with a hexagonal parachute variant that more closely resembled the hemispherical model. To inform our design process, we utilized resources found online, such as \href{https://www.nakka-rocketry.net/paracon.html}{Nakka-Rocketry.net}, to construct a parachute model and develop a new test board equipped with additional IMU and communication modules. These enhancements enabled us to achieve a descent velocity of 6 to 9 meters per second, marking a successful adaptation.
+
+As we prepared for our next mission, it became evident that new parachutes were necessary. The parachutes from previous missions were showing signs of wear and tear, posing a risk to the mission's success.
+
+To address this, we began crafting prototype parachutes while awaiting delivery of essential materials from a German supplier. We selected Nylon Ripoff Cordura fabric for its 50 grams per square meter weight, procured from \href{https://www.extremtextil.de/}{extremtextil.de}, due to its renowned durability and high resistance to abrasion. This choice was pivotal in ensuring the parachute's performance and longevity in challenging conditions, contributing to a robust mission strategy.
+
+During our test phase, we developed and tested two parachute designs, each optimized for different weather conditions: one smaller for windy environments and another for calm conditions. This approach ensures our readiness for various atmospheric scenarios. Detailed diagrams of these parachutes are available for review in the Annexes \ref{A4}.
+
+
+
+\paragraph*{Ground Support Equipment}
+
+As our team gets ready for the next flight, we realized how important it is to have a reliable and effective base station to keep track of our payload. To make sure our base station would work, we used two different plans.
+
+Our first step was to find a new use for our old base station, which uses LoPy technology from Pycom. The members of our team had used this system before on other flights (CanSat), and it had proven to be very reliable and effective. We were sure that using this tried-and-true platform would give us a strong base station system and a backup plan in case we ran into any problems.
+
+
+As our second step, we started making a new base station based on the Raspberry Pi. This change was made because we wanted to use and try new technological solutions in order to build a more advanced and flexible system that could meet the growing needs of our project. This also fit with our decision to use the ESP32 for the payload, which led us to try out the Pico as well. We chose the Raspberry Pico because it has better processing power, more connectivity choices, and more flexibility, all of which we thought were important for achieving our mission goals.
+
+\subsubsection*{Sensor testing}
+\addcontentsline{toc}{subsubsection}{Sensor testing}
+Our team has advanced in the development and testing of the payload and individual sensors. We've performed targeted tests on acquired sensors, including for pressure, temperature, humidity, UV, and GPS functionalities.
+\begin{itemize}
+    \item \textbf{Pressure Sensor:} We validated this sensor by comparing its pressure readings under varying conditions with a reference sensor, ensuring accuracy (we exposed the used sensor to a pressure change and compared the results with a reference device. We placed both sensors in a sealed container with a known volume of air and measured the pressure change with a manometer or a barometer). The test was considered positive when both sensors showed the same pressure without measuring errors.
+
+    \item \textbf{Temperature Sensor:} This sensor underwent a 24-hour test to confirm its temperature readings matched those of a reference sensor, verifying its reliability (we placed both sensors in the same location and monitored their temperature readings at regular intervals for 24 hours). The test was considered positive when both sensors showed the same temperature without significant deviation.
+
+    \item \textbf{Humidity Sensor:} We assessed this sensor in a controlled humidity environment, comparing its readings to a reference to ensure precision (we placed the target sensor and the reference device in a humidity chamber where the humidity was increased or decreased to a specific level, and the readings were compared). The test was considered positive when both sensors showed the same humidity level without significant deviation.
+
+    \item \textbf{UV Sensor:} We exposed this sensor to UV light, comparing its UV index readings with a reference sensor to confirm its effectiveness. The test was considered positive when both sensors showed the same UV index without significant deviation.
+
+    \item \textbf{GPS Test:} The GPS module's location accuracy was verified by comparing its data with a known location, ensuring its precision for mission requirements. We recorded the location data collected by the GPS module during this time and compared it to the actual location using a separate reference system.  
+\end{itemize}
